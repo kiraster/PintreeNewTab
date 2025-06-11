@@ -37,13 +37,15 @@ jobs:
       - name: 打印.output文件夹
         run: dir .\.output
 
-      # Step 5: 上传文件到Release
-      - name: 创建 Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
+      # Step 5: 上传文件到infinityfree
+      - name: FTP Upload
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          files: ./.output/*.zip
-          fail_on_unmatched_files: true
-          body_path: './release.md'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: .\.output\  # 直接使用本地生成的目录
+          server-dir: ${{ secrets.REMOTE_DIR }}
+          dry-run: false  # 实际执行上传
+          # dangerous-clean-slate: true  # 首次部署建议启用-20250607首次部署

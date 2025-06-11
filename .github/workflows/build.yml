@@ -48,4 +48,4 @@ jobs:
           local-dir: .\.output\  # 直接使用本地生成的目录
           server-dir: ${{ secrets.REMOTE_DIR }}
           dry-run: false  # 实际执行上传
-          # dangerous-clean-slate: true  # 首次部署建议启用-20250607首次部署
+          dangerous-clean-slate: true  # 首次部署建议启用-20250607首次部署
